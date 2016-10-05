@@ -15,9 +15,11 @@ public class StringCalculator {
 		}
 		else if(numbers.indexOf(",") != -1){ //if a comma is in the string
 			String[] num = numbers.split(",");
-			int num1 = Integer.parseInt(num[0]);
-			int num2 = Integer.parseInt(num[1]);
-			return num1 + num2;
+			int sum = 0;
+			for(String number : num){
+				sum += Integer.parseInt(number);
+			}
+			return sum;
 			
 		}
 		else{ //if no comma is in the string and not empty, so just one number
@@ -42,7 +44,7 @@ public class StringCalculator {
 		
 		String testInputLarge = "1,2,3,4,5,6,7";
 		sum = add(testInputLarge);
-		out.println(sum); // outcome should be 3, as every number after 2 is ignored
+		out.println(sum); // outcome should be 28
 	}
 
 }
