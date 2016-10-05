@@ -12,19 +12,18 @@ public class StringCalculator {
 		if(numbers.isEmpty()){
 			return 0;
 		}
-		else if(numbers.indexOf(",") != -1){ //if a comma is in the string
-			String[] num = numbers.split(",");
-			int sum = 0;
-			for(String number : num){
-				sum += Integer.parseInt(number);
+		int sum = 0;
+		for(int i = 0; i < numbers.length(); i++){
+			char currentChar = numbers.charAt(i);
+			if(currentChar == ',' || currentChar == '\n'){
+				continue;
 			}
-			return sum;
-			
+			else{
+				String n = Character.toString(currentChar);
+				sum += Integer.parseInt(n);
+			}
 		}
-		else{ //if no comma is in the string and not empty, so just one number
-			int num = Integer.parseInt(numbers);
-			return num;
-		}
+		return sum;
 	}
 	
 	public static void test(){
@@ -44,6 +43,10 @@ public class StringCalculator {
 		String testInputLarge = "1,2,3,4,5,6,7";
 		sum = add(testInputLarge);
 		out.println(sum); // outcome should be 28
+		
+		String testInputNewLine = "1,2,3,4\n5,6,7";
+		sum = add(testInputNewLine);
+		out.println(sum); // outcome should be 28, with newline instead of a comma
 	}
 
 }
