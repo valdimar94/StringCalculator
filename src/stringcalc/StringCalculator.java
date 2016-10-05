@@ -6,11 +6,6 @@ import edu.princeton.cs.algs4.Out;
 public class StringCalculator {
 
 	public static void main(String[] args) {
-		/*In in = new In();
-		Out out = new Out();
-		String input = in.readLine();
-		int sum = add(input);
-		out.print(sum);*/
 		test();
 	}
 	
