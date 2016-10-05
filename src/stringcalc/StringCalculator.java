@@ -1,32 +1,42 @@
 package stringcalc;
 
+import java.awt.List;
+import java.util.ArrayList;
+
 import edu.princeton.cs.algs4.Out;
 
 public class StringCalculator {
+	
+	private static String splitter = ",|\n";
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		test();
 	}
 	
-	public static int add(String numbers){
+	public static int add(String numbers) throws Exception{
+		ArrayList<Integer> negativeNums = new ArrayList<Integer>();
+		int sum = 0;
 		if(numbers.isEmpty()){
 			return 0;
 		}
-		int sum = 0;
-		for(int i = 0; i < numbers.length(); i++){
-			char currentChar = numbers.charAt(i);
-			if(currentChar == ',' || currentChar == '\n'){
-				continue;
+		else{
+			String[] nums = numbers.split(splitter);
+			for(String n : nums){
+				int number = Integer.parseInt(n);
+				if(number < 0){
+					negativeNums.add(number);
+				}
+				sum += number;
 			}
-			else{
-				String n = Character.toString(currentChar);
-				sum += Integer.parseInt(n);
-			}
+		}
+		
+		if(!negativeNums.isEmpty()){
+			throw new Exception("Negatives not allowed: " + negativeNums.toString());
 		}
 		return sum;
 	}
 	
-	public static void test(){
+	public static void test() throws Exception{
 		Out out = new Out();
 		String testInputEmpty = "";
 		int sum = add(testInputEmpty);
@@ -47,6 +57,10 @@ public class StringCalculator {
 		String testInputNewLine = "1,2,3,4\n5,6,7";
 		sum = add(testInputNewLine);
 		out.println(sum); // outcome should be 28, with newline instead of a comma
+		
+		String testInputNegative = "1,2,-3,4,-5,6,-7";
+		sum = add(testInputNegative);
+		out.println(sum); // this should throw exception: "Negatives not allowed: -3,-5,-7" 
 	}
 
 }
