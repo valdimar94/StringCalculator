@@ -6,20 +6,32 @@ import edu.princeton.cs.algs4.Out;
 
 public class StringCalculator {
 	
-	private static String splitter = ",|\n";
+	private String splitter;
+	static StringCalculator s = new StringCalculator();
 
 	public static void main(String[] args) throws Exception {
-		test();
+		s.test();
 	}
 	
-	public static int add(String numbers) throws Exception{
+	public int add(String numbers) throws Exception{
+		Out out = new Out();
 		ArrayList<Integer> negativeNums = new ArrayList<Integer>();
 		int sum = 0;
 		if(numbers.isEmpty()){
 			return 0;
 		}
 		else{
-			String[] nums = numbers.split(splitter);
+			String[] nums;
+			
+			if(numbers.startsWith("//")){
+				setSplitter(Character.toString(numbers.charAt(2)));
+				nums = numbers.substring(4, numbers.length()).split(getSplitter());
+				
+			}
+			else{
+				setSplitter(",|\n");
+				nums = numbers.split(getSplitter());
+			}
 			for(String n : nums){
 				int number = Integer.parseInt(n);
 				if(number < 0){
@@ -37,7 +49,7 @@ public class StringCalculator {
 		return sum;
 	}
 	
-	public static void test() throws Exception{
+	public void test() throws Exception{
 		Out out = new Out();
 		String testInputEmpty = "";
 		int sum = add(testInputEmpty);
@@ -63,10 +75,22 @@ public class StringCalculator {
 		sum = add(testInputToLarge);
 		out.println(sum); // outcome should be 10 as 5000 is ignored
 		
+		String testInputNewSplitter = "//;\n1;2;3;4";
+		sum = add(testInputNewSplitter);
+		out.println(sum); // outcome should be 10, using ; as a delimiter
+		
 		//Exception test always kept at bottom!
 		String testInputNegative = "1,2,-3,4,-5,6,-7";
 		sum = add(testInputNegative);
 		out.println(sum); // this should throw exception: "Negatives not allowed: -3,-5,-7" 
+	}
+
+	public String getSplitter() {
+		return splitter;
+	}
+
+	public void setSplitter(String splitter) {
+		this.splitter = splitter;
 	}
 
 }
