@@ -14,7 +14,6 @@ public class StringCalculator {
 	}
 	
 	public int add(String numbers) throws Exception{
-		Out out = new Out();
 		ArrayList<Integer> negativeNums = new ArrayList<Integer>();
 		int sum = 0;
 		if(numbers.isEmpty()){
