@@ -1,6 +1,5 @@
 package stringcalc;
 
-import java.awt.List;
 import java.util.ArrayList;
 
 import edu.princeton.cs.algs4.Out;
@@ -26,7 +25,9 @@ public class StringCalculator {
 				if(number < 0){
 					negativeNums.add(number);
 				}
-				sum += number;
+				if(number <= 1000){
+					sum += number;
+				}
 			}
 		}
 		
@@ -58,6 +59,11 @@ public class StringCalculator {
 		sum = add(testInputNewLine);
 		out.println(sum); // outcome should be 28, with newline instead of a comma
 		
+		String testInputToLarge = "1,2,3,5000,4";
+		sum = add(testInputToLarge);
+		out.println(sum); // outcome should be 10 as 5000 is ignored
+		
+		//Exception test always kept at bottom!
 		String testInputNegative = "1,2,-3,4,-5,6,-7";
 		sum = add(testInputNegative);
 		out.println(sum); // this should throw exception: "Negatives not allowed: -3,-5,-7" 
