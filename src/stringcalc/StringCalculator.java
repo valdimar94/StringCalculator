@@ -22,11 +22,9 @@ public class StringCalculator {
 		}
 		else{
 			String[] nums;
-			
 			if(numbers.startsWith("//")){
-				setSplitter(Character.toString(numbers.charAt(2)));
-				nums = numbers.substring(4, numbers.length()).split(getSplitter());
-				
+				setSplitter(numbers.substring(2, numbers.indexOf("\n")));
+				nums = numbers.substring(numbers.indexOf("\n") + 1, numbers.length()).split(getSplitter());
 			}
 			else{
 				setSplitter(",|\n");
@@ -75,9 +73,13 @@ public class StringCalculator {
 		sum = add(testInputToLarge);
 		out.println(sum); // outcome should be 10 as 5000 is ignored
 		
-		String testInputNewSplitter = "//;\n1;2;3;4";
-		sum = add(testInputNewSplitter);
+		String testInputNewSplitter1 = "//;\n1;2;3;4";
+		sum = add(testInputNewSplitter1);
 		out.println(sum); // outcome should be 10, using ; as a delimiter
+		
+		String testInputNewSplitter2 = "//Harambe\n1Harambe2Harambe3Harambe4";
+		sum = add(testInputNewSplitter2);
+		out.println(sum); // outcome should be 10, using harambe in this case as a delimiter but any string can be used instead
 		
 		//Exception test always kept at bottom!
 		String testInputNegative = "1,2,-3,4,-5,6,-7";
